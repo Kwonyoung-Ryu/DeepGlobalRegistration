@@ -118,7 +118,7 @@ data_arg.add_argument('--dataset', type=str, default='ThreeDMatchPairDataset03')
 data_arg.add_argument('--voxel_size', type=float, default=0.025)
 data_arg.add_argument('--threed_match_dir', type=str, default='.')
 data_arg.add_argument('--postech_dir', type=str, default=None, help="Path to the KITTI odometry dataset. This path should contain <kitti_dir>/dataset/sequences.")
-data_arg.add_argument('--postech_max_time_diff', type=int, default=3, help='max time difference between pairs (non inclusive)')
+data_arg.add_argument('--postech_time_diff', type=int, default=5, help='max time difference between pairs (non inclusive)')
 #data_arg.add_argument('--postech_date', type=str, default='2011_09_2')
 
 # Evaluation

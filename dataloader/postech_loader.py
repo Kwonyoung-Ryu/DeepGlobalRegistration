@@ -48,17 +48,16 @@ class POSTECHPairDataset(PairDataset):
 
     logging.info(f"Loading the subset {phase} from {root}")
     # Use the postech root
-    self.max_time_diff = max_time_diff = config.postech_max_time_diff
+    self.time_diff = time_diff = config.postech_time_diff
 
     subset_names = open(self.DATA_FILES[phase]).read().split()
     for dirname in subset_names:
       drive_id = dirname
       inames = self.get_all_scan_ids(drive_id)
       for start_time in inames:
-        for time_diff in range(2, max_time_diff):
-          pair_time = time_diff + start_time
-          if pair_time in inames:
-            self.files.append((drive_id, start_time, pair_time))
+        pair_time = self.time_diff + start_time
+        if pair_time in inames:
+          self.files.append((drive_id, start_time, pair_time))
 
   def get_all_scan_ids(self, drive_id):
     fnames = glob.glob(self.root + drive_id+'/depth/*.png')
