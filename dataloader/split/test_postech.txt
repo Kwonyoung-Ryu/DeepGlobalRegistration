@@ -1,0 +1,12 @@
+Corridor
+Lab
+Lecture_room
+Lounge
+Student_room
+Campus1
+Campus2
+Fountain
+Square
+Statue
+Lecture_building
+Dormitory
