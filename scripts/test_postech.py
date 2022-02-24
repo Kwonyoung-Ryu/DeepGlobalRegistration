@@ -109,13 +109,9 @@ def evaluate(config, data_loader, method):
         f" RRE: {rre}, Success: {succ_rate * 100} %")
 
     # Save results
-    filename = f'kitti-stats_{method.__class__.__name__}'
-    if config.out_filename is not None:
-        filename += f'_{config.out_filename}'
-    if isinstance(method, FCGFWrapper):
-        filename += '_' + method.method
-        if 'ransac' in method.method:
-            filename += f'_{config.ransac_iter}'
+    filename = f'postech-stats_{method.__class__.__name__}'
+    filename += '_frame_diff'
+    filename += f'_{config.postech_time_diff}'
     if os.path.isdir(config.out_dir):
         out_file = os.path.join(config.out_dir, filename)
     else:

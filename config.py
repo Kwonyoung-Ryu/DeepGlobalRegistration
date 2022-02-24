@@ -23,6 +23,7 @@ def str2bool(v):
 # yapf: disable
 logging_arg = add_argument_group('Logging')
 logging_arg.add_argument('--out_dir', type=str, default='outputs')
+logging_arg.add_argument('--out_filename', type=str, default=None)
 
 trainer_arg = add_argument_group('Trainer')
 trainer_arg.add_argument('--trainer', type=str, default='WeightedProcrustesTrainer')
