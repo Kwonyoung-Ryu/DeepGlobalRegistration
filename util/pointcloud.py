@@ -9,7 +9,7 @@ import numpy as np
 import math
 
 import open3d as o3d
-from core.knn import find_knn_cpu
+from submodule.DeepGlobalRegistration.core.knn import find_knn_cpu
 
 
 def make_open3d_point_cloud(xyz, color=None):

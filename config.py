@@ -138,5 +138,5 @@ demo_arg.add_argument('--pcd1', default="redkitchen_010.ply", type=str)
 
 
 def get_config():
-  args = parser.parse_args()
-  return args
+  config = parser.parse_args()
+  return config

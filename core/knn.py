@@ -8,7 +8,7 @@ import torch
 import numpy as np
 from scipy.spatial import cKDTree
 
-from core.metrics import pdist
+from submodule.DeepGlobalRegistration.core.metrics import pdist
 
 
 def find_knn_cpu(feat0, feat1, knn=1, return_distance=False):

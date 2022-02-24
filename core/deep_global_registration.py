@@ -16,13 +16,13 @@ import copy
 import MinkowskiEngine as ME
 
 sys.path.append('.')
-from model import load_model
+from submodule.DeepGlobalRegistration.model import load_model
 
-from core.registration import GlobalRegistration
-from core.knn import find_knn_gpu
+from submodule.DeepGlobalRegistration.core.registration import GlobalRegistration
+from submodule.DeepGlobalRegistration.core.knn import find_knn_gpu
 
-from util.timer import Timer
-from util.pointcloud import make_open3d_point_cloud
+from submodule.DeepGlobalRegistration.util.timer import Timer
+from submodule.DeepGlobalRegistration.util.pointcloud import make_open3d_point_cloud
 
 
 # Feature-based registrations in Open3D
@@ -59,12 +59,13 @@ def registration_ransac_based_on_correspondence(pcd0, pcd1, idx0, idx1,
 
   return result.transformation
 
-
 class DeepGlobalRegistration:
   def __init__(self, config, device=torch.device('cuda')):
     # Basic config
+
     self.config = config
-    self.clip_weight_thresh = self.config.clip_weight_thresh
+    #self.clip_weight_thresh = self.config.clip_weight_thresh
+    self.clip_weight_thresh = self.config['clip_weight_thresh']
     self.device = device
 
     # Safeguard
@@ -78,13 +79,14 @@ class DeepGlobalRegistration:
     self.reg_timer = Timer()
 
     # Model config loading
-    print("=> loading checkpoint '{}'".format(config.weights))
-    assert os.path.exists(config.weights)
+    print("=> loading checkpoint '{}'".format(config['weights']))
+    assert os.path.exists(config['weights'])
 
-    state = torch.load(config.weights)
+    state = torch.load(config['weights'])
     network_config = state['config']
     self.network_config = network_config
-    self.config.inlier_feature_type = network_config.inlier_feature_type
+    #self.config.inlier_feature_type = network_config.inlier_feature_type
+    self.config['inlier_feature_type'] = network_config.inlier_feature_type
     self.voxel_size = network_config.voxel_size
 
     print(f'=> Setting voxel size to {self.voxel_size}')
@@ -186,7 +188,8 @@ class DeepGlobalRegistration:
     '''
     assert len(corres_idx0) == len(corres_idx1)
 
-    feat_type = self.config.inlier_feature_type
+    #feat_type = self.config.inlier_feature_type
+    feat_type = self.config['inlier_feature_type']
     assert feat_type in ['ones', 'feats', 'coords']
 
     corres_idx0 = corres_idx0.to(self.device)
